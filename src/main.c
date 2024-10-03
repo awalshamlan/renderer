@@ -40,12 +40,13 @@ void update(void){
 }
 
 void render(void){
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
 	render_color_buffer();
 	clear_color_buffer(0xFF000000);
 	draw_dot_grid(0xFFA0A0A0, 10);
+	draw_pixel(20, 20, 0xFFFFFF00);
 	draw_rect(0xFFFF0000, 300, 500, (int) window_width / 2 , (int) window_height / 2);
 	SDL_RenderPresent(renderer);
 }

@@ -66,7 +66,7 @@ void render_color_buffer(void){
 void draw_dot_grid(uint32_t color, int spacing){
 	for (int y = 0; y < window_height; y += spacing){
 		for (int x = 0; x < window_width; x += spacing){
-			color_buffer[(y * window_width) + x] = color;
+			draw_pixel(x, y, color);
 		}
 	}
 }
@@ -76,16 +76,21 @@ void draw_grid(uint32_t color, int spacing){
 	for (int y = 0; y < window_height; y++){
 		for (int x = 0; x < window_width; x++){
 			if(y % spacing == 0 || x % spacing == 0){
-				color_buffer[(y * window_width) + x] = color;
+				draw_pixel(x, y, color);
 			}
 		}
 	}
 }
 
+void draw_pixel(int x, int y, uint32_t color){
+	if(x < window_width && y < window_height){
+		color_buffer[(y * window_width) + x] = color;
+	}
+}
 void draw_rect(uint32_t color, int len_x, int len_y, int pos_x, int pos_y){
 	for (int y = pos_y; (y < pos_y+len_y && y != window_height); y++){
 		for (int x = pos_x; (x < pos_x+len_x && x != window_width); x++){
-			color_buffer[(y * window_width) + x] = color;
+			draw_pixel(x, y, color);
 		}
 	}
 }
@@ -94,7 +99,7 @@ void draw_rect(uint32_t color, int len_x, int len_y, int pos_x, int pos_y){
 void clear_color_buffer(uint32_t color){
 	for (int y = 0; y < window_height; y++){	
 		for (int x = 0; x < window_width; x++){
-			color_buffer[(y * window_width) + x] = color;
+			draw_pixel(x, y, color);
 		}
 	}
 }

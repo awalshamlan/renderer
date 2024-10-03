@@ -19,6 +19,7 @@ bool initialize_window(void);
 void render_color_buffer(void);
 void draw_dot_grid(uint32_t color, int spacing);
 void draw_grid(uint32_t color, int spacing);
+void draw_pixel(int x, int y, uint32_t color);
 void draw_rect(uint32_t color, int len_x, int len_y, int pos_x, int pos_y);
 void clear_color_buffer(uint32_t color);
 void destroy_window(void);
