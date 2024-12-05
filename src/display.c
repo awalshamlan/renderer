@@ -30,7 +30,7 @@ bool initialize_window(void){
 		SDL_WINDOWPOS_CENTERED,
 		window_width,
 		window_height,
-		SDL_WINDOW_FULLSCREEN
+		0
 	);
 	if (!window){
 		fprintf(stderr, "Error creating SDL window.\n");
@@ -87,6 +87,7 @@ void draw_pixel(int x, int y, uint32_t color){
 		color_buffer[(y * window_width) + x] = color;
 	}
 }
+
 void draw_rect(uint32_t color, int len_x, int len_y, int pos_x, int pos_y){
 	for (int y = pos_y; (y < pos_y+len_y && y != window_height); y++){
 		for (int x = pos_x; (x < pos_x+len_x && x != window_width); x++){
