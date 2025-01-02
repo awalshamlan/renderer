@@ -32,7 +32,7 @@ void setup(void){
 	int point_count = 0;
 	for (float x = -1; x <= 1; x += 0.25){
 		for (float y = -1; y <= 1; y += 0.25){
-			for (float z = 0; z <= 2; z += 0.25){
+			for (float z = -1; z <= 1; z += 0.25){
 				vec3_t new_point = {.x = x, .y = y, .z = z};
 				cube_points[point_count++] = new_point;
 			}
@@ -51,14 +51,6 @@ void process_input(void){
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_ESCAPE)
 				is_running = false;
-			if (event.key.keysym.sym == SDLK_LEFT)
-				x_modifier = 0.1;
-			if (event.key.keysym.sym == SDLK_RIGHT)
-				x_modifier = -0.1;
-			if (event.key.keysym.sym == SDLK_DOWN)
-				z_modifier = -0.1;
-			if (event.key.keysym.sym == SDLK_UP)
-				z_modifier = 0.1;
 			break;
 
 	}
@@ -73,9 +65,10 @@ vec2_t project(vec3_t point){
 }
 
 vec2_t perspective_project(vec3_t point){
+	// TODO
 	vec2_t projected_point = {
-		.x = (fov_factor * point.x * point.z),
-		.y = (fov_factor * point.y * point.z)
+		.x = (point.x),
+		.y = (point.y)
 	};
 	return projected_point;
 }
@@ -83,22 +76,9 @@ vec2_t perspective_project(vec3_t point){
 void update(void){
 	for (int i = 0; i < N_POINTS; i++){
 		vec3_t point = cube_points[i];
-		if (x_modifier != 0){
-			point.x = point.x + x_modifier;
-		}
-		if (y_modifier != 0){
-			point.y = point.y + y_modifier;
-		}
-		if (z_modifier != 0){
-			point.z = point.z + z_modifier;
-		}
-		cube_points[i] = point;
-		vec2_t projected_point = perspective_project(point);
+		vec2_t projected_point = project(point);
 		projected_points[i] = projected_point;
 	}
-	y_modifier = 0;
-	z_modifier = 0;
-	x_modifier = 0;
 }
 
 void render(void){
